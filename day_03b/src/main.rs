@@ -1,6 +1,5 @@
-use std::collections::HashSet;
-
 use itertools::Itertools;
+use std::collections::HashSet;
 
 fn find_badge(bp1: &str, bp2: &str, bp3: &str) -> Option<char> {
     let one = HashSet::<char>::from_iter(bp1.chars());
@@ -21,7 +20,7 @@ fn char_to_priority(c: char) -> Option<usize> {
 fn main() {
     let sum: usize = include_str!("../input.txt")
         .split_whitespace()
-        .tuples::<(_, _, _,)>()
+        .tuples::<(_, _, _)>()
         .flat_map(|(a, b, c)| find_badge(a, b, c))
         .flat_map(char_to_priority)
         .sum();
