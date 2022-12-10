@@ -1,13 +1,17 @@
-use itertools::Itertools;
 use std::collections::HashSet;
 
-fn find_badge(bp1: &str, bp2: &str, bp3: &str) -> Option<char> {
-    let one = HashSet::<char>::from_iter(bp1.chars());
-    let two = HashSet::from_iter(bp2.chars());
-    let three = HashSet::from_iter(bp3.chars());
-    let mut badge = &one & &two;
-    badge = &badge & &three;
-    badge.into_iter().next()
+fn find_badge<'a, T, I>(backpacks: T) -> Option<char>
+where
+    T: IntoIterator<Item = &'a I>,
+    I: AsRef<str> + 'a,
+{
+    backpacks
+        .into_iter()
+        .map(|bp| bp.as_ref().chars().collect::<HashSet<_>>())
+        .reduce(|acc, x| &acc & &x)
+        .unwrap()
+        .into_iter()
+        .next()
 }
 
 fn char_to_priority(c: char) -> Option<usize> {
@@ -20,8 +24,9 @@ fn char_to_priority(c: char) -> Option<usize> {
 fn main() {
     let sum: usize = include_str!("../input.txt")
         .split_whitespace()
-        .tuples::<(_, _, _)>()
-        .flat_map(|(a, b, c)| find_badge(a, b, c))
+        .collect::<Vec<&str>>()
+        .chunks(3)
+        .flat_map(find_badge)
         .flat_map(char_to_priority)
         .sum();
     println!("The priority sum is {sum}")

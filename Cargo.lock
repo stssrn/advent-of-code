@@ -34,9 +34,6 @@ version = "0.1.0"
 [[package]]
 name = "day_03b"
 version = "0.1.0"
-dependencies = [
- "itertools",
-]
 
 [[package]]
 name = "either"
