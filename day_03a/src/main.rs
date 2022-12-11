@@ -1,15 +1,3 @@
-use std::collections::HashSet;
-
-fn find_mistake(left: &str, right: &str) -> Option<char> {
-    [left, right]
-        .into_iter()
-        .map(|x| x.chars().collect::<HashSet<_>>())
-        .reduce(|acc, x| &acc & &x)
-        .unwrap()
-        .into_iter()
-        .next()
-}
-
 fn char_to_priority(c: char) -> Option<usize> {
     (b'a'..=b'z')
         .chain(b'A'..=b'Z')
@@ -19,9 +7,9 @@ fn char_to_priority(c: char) -> Option<usize> {
 
 fn main() {
     let sum: usize = include_str!("../input.txt")
-        .split_whitespace()
+        .lines()
         .map(|x| x.split_at(x.len() / 2))
-        .flat_map(|(a, b)| find_mistake(a, b))
+        .flat_map(|(a, b)| a.chars().find(|&c| b.contains(c)))
         .flat_map(char_to_priority)
         .sum();
     println!("The priority sum is {sum}")
