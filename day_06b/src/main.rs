@@ -3,9 +3,7 @@ use std::collections::HashSet;
 const WINDOW_SIZE: usize = 14;
 
 fn main() {
-    let index = include_str!("../input.txt")
-        .chars()
-        .collect::<Vec<_>>()
+    let index = include_bytes!("../input.txt")
         .windows(WINDOW_SIZE)
         .map(HashSet::<_>::from_iter)
         .take_while(|x| x.len() != WINDOW_SIZE)
