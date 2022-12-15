@@ -84,15 +84,15 @@ name = "day_08a"
 version = "0.1.0"
 
 [[package]]
-name = "day_08b"
-version = "0.1.0"
-
-[[package]]
 name = "day_09a"
 version = "0.1.0"
 
 [[package]]
-name = "day_09b"
+name = "day_10a"
+version = "0.1.0"
+
+[[package]]
+name = "day_10b"
 version = "0.1.0"
 
 [[package]]
